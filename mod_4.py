@@ -35,7 +35,15 @@ prob += (x2 + y2 + z2)/600 == (x3 + y3 + z3)/300
 prob += (x3 + y3 + z3)/300 == (x1 + y1 + z1)/400
 
 prob.solve()
+print("\n"*100)
 print(f"Status: {LpStatus[prob.status]}")
+i = 1
 for var in prob.variables():
-    print(f"{var.name} = {var.varValue}")
-print(f"Objective = {value(prob.objective)}")
+    if "x" in var.name:
+        print(f"Cantidad [ha] de remolacha a cultivar en la parcela {i}, {var.name} = {var.varValue}")
+    elif "y" in var.name:
+        print(f"Cantidad [ha] de trigo a cultivar en la parcela {i-3}, {var.name} = {var.varValue}")
+    elif "z" in var.name:
+        print(f"Cantidad [ha] de maravilla a cultivar en la parcela {i-6}, {var.name} = {var.varValue}")
+    i += 1
+print(f"Objectivo = {value(prob.objective)}")
